@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('price');
-            $table->boolean('isPublished');
+            $table->decimal('price');
+            $table->boolean('is_published');
             $table->softDeletes();
             $table->timestamps();
         });

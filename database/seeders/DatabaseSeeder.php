@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\V1\Category;
+use App\Models\V1\Item;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $items = Item::factory(20)->create();
+        $categories = Category::factory(10)->create();
+
+        foreach ($items as $item) {
+            $catIds = $categories->random(random_int(2,10))->pluck('id');
+            $item->categories()->attach($catIds);
+        }
     }
 }
