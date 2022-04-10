@@ -16,14 +16,14 @@ class ItemResource extends JsonResource
     {
         $tmp_categories = [];
         foreach ($this['categories'] as $category) {
-            $tmp_categories[] = $category->name;
+            $tmp_categories[] = ['id' => $category->id, 'name' => $category->name];
         }
         return [
             'id' => $this->id,
             'name' => $this['name'],
             'price' => $this['price'],
             'created_at' => $this['created_at'],
-            'categories' => implode(', ', $tmp_categories)
+            'categories' => $tmp_categories
         ];
     }
 }

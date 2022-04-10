@@ -29,7 +29,9 @@ class CreateRequest extends ApiRequest
             'price' => 'numeric|required',
             'is_published' => 'boolean|required',
             'categories' => 'array|min:2|max:10|required',
-            'categories.*' => 'integer|required',
+            'categories.*' => 'array|min:1|max:2',
+            'categories.*.id' => 'numeric|required_without:categories.*.name',
+            'categories.*.name' => 'string|required_without:categories.*.id',
         ];
     }
 }
