@@ -5,11 +5,13 @@ namespace App\Models\V1;
 use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Item extends Model
 {
-    use HasFactory;
-    use Filterable;
+    use HasFactory, Filterable, SoftDeletes;
+
+    protected $fillable = ['name', 'price', 'is_published'];
 
     public function categories()
     {

@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\V1\Item;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\V1\Item\CreateRequest;
+use App\Http\Resources\V1\ItemResource;
+use App\Models\V1\Item;
 
 class CreateController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Request $request)
+    public function __invoke(CreateRequest $request)
     {
-        //
+        $categories = $request['categories'];
+        $item = Item::create($request->all());
+        $item->categories()->attach($categories);
+        return ItemResource::make($item);
     }
 }

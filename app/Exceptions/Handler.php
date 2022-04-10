@@ -2,10 +2,9 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
-use function PHPUnit\Framework\isInstanceOf;
 
 class Handler extends ExceptionHandler
 {
@@ -29,12 +28,21 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    public function render($request, Throwable $exception) {
+    /**
+     * Overrides parent method. Return JSON response if there is a ModelNotFoundException and API request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $e
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+     */
+    public function render($request, Throwable $e) {
         if (str_starts_with($request->getRequestUri(), '/api/') &&
-            isInstanceOf(NotFoundHttpException::class, $exception)) {
+            $e instanceof ModelNotFoundException) {
             return response()->json(['message' => 'Things not found'], 404);
         }
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
 
     /**
