@@ -37,8 +37,8 @@ class ItemFilter extends AbstractFilter
     }
     public function is_not_deleted(Builder $builder, $value)
     {
-        if ($value == 1) {
-            $builder->whereNull('deleted_at');
+        if ($value == 0) {
+            $builder->withTrashed()->whereNotNull('deleted_at');
         }
     }
     public function max_price(Builder $builder, $value)
