@@ -12,6 +12,7 @@ class CreateController extends BaseController
     {
         $data = $request->validated();
         $item = $this->service->create($data);
-        return $item instanceof Item ? ItemResource::make($item) : $item;
+        return $item instanceof Item ? ItemResource::make($item) :
+            response()->json(['message' => $item], 422);
     }
 }
