@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\V1\Item;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\V1\ApiRequest;
 
-class FilterRequest extends FormRequest
+class FilterRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,13 @@ class FilterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => '',
-            'category_id' => '',
-            'category_name' => '',
-            'min_price' => '',
-            'max_price' => '',
-            'is_published' => '',
-            'is_not_deleted' => ''
+            'name' => 'string',
+            'category_id' => 'numeric',
+            'category_name' => 'string',
+            'min_price' => 'numeric',
+            'max_price' => 'numeric',
+            'is_published' => 'boolean',
+            'is_not_deleted' => 'boolean'
         ];
     }
 }
