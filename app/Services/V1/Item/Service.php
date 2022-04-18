@@ -1,8 +1,8 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Services\V1\Item;
 
-use App\Http\Requests\V1\Item\CreateRequest;
 use App\Models\V1\Category;
 use App\Models\V1\Item;
 use Exception;
